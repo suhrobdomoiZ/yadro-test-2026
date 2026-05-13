@@ -2,6 +2,7 @@ package server
 
 import (
 	"log/slog"
+	"net/http"
 
 	"github.com/suhrobdomoiZ/yadro-test-2026/config"
 	"github.com/suhrobdomoiZ/yadro-test-2026/pkg/closer"
@@ -21,4 +22,7 @@ func NewServer(cfg *config.AppConfig, appLogger *slog.Logger, closer *closer.Clo
 	}
 }
 
-func (s *Server) Start() {}
+func (s *Server) Start() {
+	mux := http.NewServeMux()
+
+}
