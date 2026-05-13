@@ -1,0 +1,7 @@
+.git/
+.github/
+.data/
+.env.example
+.golangci.yaml
+.gitignore
+LICENSE
