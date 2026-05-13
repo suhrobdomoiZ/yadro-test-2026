@@ -32,6 +32,8 @@ type NodeInfo struct {
 	PartNumber   string
 	Revision     string
 	ProductName  string
+
+	Attributes map[string]string
 }
 
 type ParsedData struct {
