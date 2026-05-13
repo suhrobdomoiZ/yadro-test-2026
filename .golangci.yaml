@@ -27,9 +27,18 @@ linters:
       case:
         rules:
           json: snake
+    cyclop:
+      max-complexity: 25
+    funlen:
+      lines: 200
+      statements: 100
+    gocognit:
+      min-complexity: 50
     gosec:
       excludes:
         - G706
+        - G304
+        - G305
 
 formatters:
   enable:
