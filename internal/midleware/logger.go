@@ -8,6 +8,7 @@ import (
 
 type responseWriter struct {
 	http.ResponseWriter
+
 	statusCode int
 }
 
@@ -17,20 +18,20 @@ func (rw *responseWriter) WriteHeader(code int) {
 }
 
 func LoggingMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		slog.Info("Started to perform request", "method", r.Method, "path", r.URL.Path)
+	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
+		slog.Info("Started to perform request", "method", request.Method, "path", request.URL.Path)
 
 		start := time.Now()
-		rw := &responseWriter{ResponseWriter: w, statusCode: http.StatusOK}
+		wrapper := &responseWriter{ResponseWriter: writer, statusCode: http.StatusOK}
 
-		next.ServeHTTP(rw, r)
+		next.ServeHTTP(wrapper, request)
 
 		duration := time.Since(start)
 
 		slog.Info("request completed",
-			"method", r.Method,
-			"path", r.URL.Path,
-			"status", rw.statusCode,
+			"method", request.Method,
+			"path", request.URL.Path,
+			"status", wrapper.statusCode,
 			"duration", duration,
 		)
 	})
