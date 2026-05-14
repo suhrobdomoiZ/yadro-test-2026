@@ -19,6 +19,7 @@ type Node struct {
 }
 
 type Port struct {
+	GUID          string
 	Number        int
 	LID           int
 	State         int

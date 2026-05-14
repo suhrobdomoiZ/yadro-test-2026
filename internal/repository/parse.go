@@ -86,13 +86,13 @@ func (r *Parse) SaveParsedData(
 
 		for _, port := range node.Ports {
 			portQuery := `
-                INSERT INTO ports (log_id, node_id, number, lid, state, physical_state, link_speed, link_width)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-            `
+				INSERT INTO ports (log_id, node_id, guid, number, lid, state, physical_state, link_speed, link_width)
+    			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`
 
 			_, err = trx.Exec(ctx, portQuery,
 				logID,
 				nodeID,
+				port.GUID,
 				port.Number,
 				port.LID,
 				port.State,

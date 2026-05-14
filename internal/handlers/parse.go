@@ -28,16 +28,6 @@ func newParseHandler(logger *slog.Logger, pool *pgxpool.Pool) *parseHandler {
 
 // POST /api/v1/parse.
 func (h *parseHandler) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
-	if request.Method != http.MethodPost {
-		http.Error(
-			responseWriter,
-			http.StatusText(http.StatusMethodNotAllowed),
-			http.StatusMethodNotAllowed,
-		)
-
-		return
-	}
-
 	var req models.ParseRequest
 
 	err := json.NewDecoder(request.Body).Decode(&req)

@@ -10,6 +10,7 @@ const (
 	IdxNodeGUID     = 6
 
 	IdxPortNodeGUID = 0
+	IdxPortGUID     = 1
 	IdxPortPortNum  = 2
 	IdxPortLID      = 6
 	IdxPortState    = 21

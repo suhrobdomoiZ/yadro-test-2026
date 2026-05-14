@@ -180,6 +180,7 @@ func parsePortLine(line string) (*Port, string, error) {
 		return nil, "", gErr
 	}
 
+	portGUID, _ := getField(fields, utils.IdxPortGUID)
 	pNumStr, _ := getField(fields, utils.IdxPortPortNum)
 	lidStr, _ := getField(fields, utils.IdxPortLID)
 	stateStr, _ := getField(fields, utils.IdxPortState)
@@ -188,6 +189,7 @@ func parsePortLine(line string) (*Port, string, error) {
 	widthStr, _ := getField(fields, utils.IdxPortWidth)
 
 	port := &Port{
+		GUID:          portGUID,
 		Number:        parseInt(pNumStr),
 		LID:           parseInt(lidStr),
 		State:         parseInt(stateStr),
