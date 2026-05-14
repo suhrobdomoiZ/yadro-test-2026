@@ -11,27 +11,38 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/suhrobdomoiZ/yadro-test-2026/config"
+	"github.com/suhrobdomoiZ/yadro-test-2026/internal/handlers"
 	middleware "github.com/suhrobdomoiZ/yadro-test-2026/internal/midleware"
 	"github.com/suhrobdomoiZ/yadro-test-2026/pkg/closer"
 )
 
 type Server struct {
-	Config *config.AppConfig
-	Logger *slog.Logger
-	Closer *closer.Closer
+	Config  *config.AppConfig
+	Logger  *slog.Logger
+	Closer  *closer.Closer
+	Handler *handlers.AppHandler
 }
 
-func NewServer(cfg *config.AppConfig, appLogger *slog.Logger, closer *closer.Closer) *Server {
+func NewServer(
+	cfg *config.AppConfig,
+	appLogger *slog.Logger,
+	closer *closer.Closer,
+	pool *pgxpool.Pool,
+) *Server {
 	return &Server{
-		Config: cfg,
-		Logger: appLogger,
-		Closer: closer,
+		Config:  cfg,
+		Logger:  appLogger,
+		Closer:  closer,
+		Handler: handlers.NewAppHandlerHandler(appLogger, pool),
 	}
 }
 
 func (s *Server) Start(ctx context.Context) error {
 	mux := http.NewServeMux()
+	mux.HandleFunc("POST /api/v1/parse/", s.Handler.ParseHandler.ServeHTTP)
+
 	handler := middleware.LoggingMiddleware(mux)
 
 	srv := &http.Server{

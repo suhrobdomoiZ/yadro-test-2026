@@ -56,7 +56,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	srv := server.NewServer(cfg, appLogger, appCloser)
+	srv := server.NewServer(cfg, appLogger, appCloser, pool)
 
 	err = srv.Start(ctx)
 	if err != nil {

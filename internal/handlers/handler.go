@@ -7,12 +7,12 @@ import (
 )
 
 type AppHandler struct {
-	parseHandler *parseHandler
+	ParseHandler *parseHandler
 }
 
 func NewAppHandlerHandler(logger *slog.Logger, pool *pgxpool.Pool) *AppHandler {
 	return &AppHandler{
-		parseHandler: newParseHandler(logger, pool),
+		ParseHandler: newParseHandler(logger, pool),
 	}
 }
 
