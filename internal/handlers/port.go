@@ -34,7 +34,7 @@ func (h *portHandler) ServeHTTP(responseWriter http.ResponseWriter, request *htt
 		return
 	}
 
-	ports, err := h.service.GetPortByID(request.Context(), nodeID)
+	ports, err := h.service.GetPortsByID(request.Context(), nodeID)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
 			http.Error(responseWriter, "Ports not found", http.StatusNotFound)

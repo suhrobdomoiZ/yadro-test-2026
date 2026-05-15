@@ -23,6 +23,10 @@ type INodeRepository interface {
 	Get(ctx context.Context, nodeID int) (*models.NodeDetailsResponse, error)
 }
 
-type IPortRepository interface {
+type IPortsRepository interface {
 	Get(ctx context.Context, nodeID int) ([]models.PortInstance, error)
+}
+
+type IInfoRepository interface {
+	Get(ctx context.Context, logID int) (*models.InfoResponse, error)
 }

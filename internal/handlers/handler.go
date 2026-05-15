@@ -11,6 +11,7 @@ type AppHandler struct {
 	TopologyHandler *topologyHandler
 	NodeHandler     *nodeHandler
 	PortHandler     *portHandler
+	InfoHandler     *infoHandler
 }
 
 func NewAppHandlerHandler(logger *slog.Logger, pool *pgxpool.Pool) *AppHandler {
@@ -19,7 +20,6 @@ func NewAppHandlerHandler(logger *slog.Logger, pool *pgxpool.Pool) *AppHandler {
 		TopologyHandler: newTopologyHandler(logger, pool),
 		NodeHandler:     newNodeHandler(logger, pool),
 		PortHandler:     newPortHandler(logger, pool),
+		InfoHandler:     newInfoHandler(logger, pool),
 	}
 }
-
-// GET /api/v1/log/{log_id}

@@ -9,15 +9,15 @@ import (
 	"github.com/suhrobdomoiZ/yadro-test-2026/internal/models"
 )
 
-type Port struct {
+type Ports struct {
 	pool *pgxpool.Pool
 }
 
-func NewPort(pool *pgxpool.Pool) *Port {
-	return &Port{pool}
+func NewPorts(pool *pgxpool.Pool) *Ports {
+	return &Ports{pool}
 }
 
-func (r *Port) Get(ctx context.Context, nodeID int) ([]models.PortInstance, error) {
+func (r *Ports) Get(ctx context.Context, nodeID int) ([]models.PortInstance, error) {
 	query := `
 		SELECT id, log_id, node_id, guid, number, lid, state, physical_state, link_speed, link_width
 		FROM ports

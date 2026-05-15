@@ -10,15 +10,15 @@ import (
 )
 
 type PortService struct {
-	repository repository.IPortRepository
+	repository repository.IPortsRepository
 	logger     *slog.Logger
 }
 
 func NewPortService(logger *slog.Logger, pool *pgxpool.Pool) *PortService {
-	return &PortService{logger: logger, repository: repository.NewPort(pool)}
+	return &PortService{logger: logger, repository: repository.NewPorts(pool)}
 }
 
-func (s *PortService) GetPortByID(ctx context.Context, nodeID int) (models.PortResponse, error) {
+func (s *PortService) GetPortsByID(ctx context.Context, nodeID int) (models.PortResponse, error) {
 	ports, err := s.repository.Get(ctx, nodeID)
 	if err != nil {
 		return models.PortResponse{}, err
