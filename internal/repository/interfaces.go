@@ -18,3 +18,7 @@ type IParseRepository interface {
 type ITopologyRepository interface {
 	Get(ctx context.Context, logID int) (*models.TopologyResponse, error)
 }
+
+type INodeRepository interface {
+	Get(ctx context.Context, nodeID int) (*models.NodeDetailsResponse, error)
+}
