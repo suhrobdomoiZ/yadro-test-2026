@@ -44,6 +44,7 @@ func (s *Server) Start(ctx context.Context) error {
 	mux.HandleFunc("POST /api/v1/parse/", s.Handler.ParseHandler.ServeHTTP)
 	mux.HandleFunc("GET /api/v1/topology/{log_id}", s.Handler.TopologyHandler.ServeHTTP)
 	mux.HandleFunc("GET /api/v1/node/{node_id}", s.Handler.NodeHandler.ServeHTTP)
+	mux.HandleFunc("GET /api/v1/port/{node_id}", s.Handler.PortHandler.ServeHTTP)
 
 	handler := middleware.LoggingMiddleware(mux)
 

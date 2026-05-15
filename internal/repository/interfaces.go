@@ -22,3 +22,7 @@ type ITopologyRepository interface {
 type INodeRepository interface {
 	Get(ctx context.Context, nodeID int) (*models.NodeDetailsResponse, error)
 }
+
+type IPortRepository interface {
+	Get(ctx context.Context, nodeID int) ([]models.PortInstance, error)
+}

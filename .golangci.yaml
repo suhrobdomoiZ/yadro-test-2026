@@ -8,6 +8,7 @@ linters:
     - wrapcheck
     - ireturn
     - exhaustruct
+    - dupl
   settings:
     revive:
       enable-default-rules: true
