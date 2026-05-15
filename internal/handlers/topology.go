@@ -2,12 +2,10 @@ package handlers
 
 import (
 	"encoding/json"
-	"errors"
 	"log/slog"
 	"net/http"
 	"strconv"
 
-	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/suhrobdomoiZ/yadro-test-2026/internal/service"
 )
@@ -33,7 +31,7 @@ func (h *topologyHandler) ServeHTTP(responseWriter http.ResponseWriter, request 
 
 	topology, err := h.service.GetTopology(request.Context(), logID)
 	if err != nil {
-		if errors.Is(err, pgx.ErrNoRows) {
+		if len(topology.Hosts) == 0 && len(topology.Switches) == 0 {
 			http.Error(responseWriter, err.Error(), http.StatusNotFound)
 
 			return
@@ -49,7 +47,7 @@ func (h *topologyHandler) ServeHTTP(responseWriter http.ResponseWriter, request 
 
 	err = json.NewEncoder(responseWriter).Encode(topology)
 	if err != nil {
-		h.logger.Error("parseHandler.ServeHTTP", "error", err)
+		h.logger.Error("topologyHandler.ServeHTTP", "error", err)
 		http.Error(
 			responseWriter,
 			http.StatusText(http.StatusInternalServerError),
