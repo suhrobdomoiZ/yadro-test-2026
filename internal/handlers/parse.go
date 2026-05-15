@@ -57,11 +57,13 @@ func (h *parseHandler) ServeHTTP(responseWriter http.ResponseWriter, request *ht
 		return
 	}
 
-	fullPath := filepath.Join("data", cleanPath)
+	filename := filepath.Base(cleanPath)
+	fullPath := filepath.Join("/app/data", filename)
 
 	_, err = os.Stat(fullPath)
 	if os.IsNotExist(err) {
-		http.Error(responseWriter, "File not found", http.StatusNotFound)
+		h.logger.Error("File not found", "path", fullPath)
+		http.Error(responseWriter, "File not found in /app/data", http.StatusNotFound)
 
 		return
 	}

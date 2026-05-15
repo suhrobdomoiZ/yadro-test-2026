@@ -13,10 +13,11 @@ const (
 	IdxPortGUID     = 1
 	IdxPortPortNum  = 2
 	IdxPortLID      = 6
-	IdxPortState    = 21
-	IdxPortPhyState = 20
-	IdxPortSpeed    = 17
-	IdxPortWidth    = 12
+
+	IdxPortWidth    = 10
+	IdxPortSpeed    = 15
+	IdxPortPhyState = 19
+	IdxPortState    = 20
 
 	IdxInfoGUID   = 0
 	IdxInfoSerial = 1

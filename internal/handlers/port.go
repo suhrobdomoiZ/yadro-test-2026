@@ -2,12 +2,10 @@ package handlers
 
 import (
 	"encoding/json"
-	"errors"
 	"log/slog"
 	"net/http"
 	"strconv"
 
-	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/suhrobdomoiZ/yadro-test-2026/internal/service"
 )
@@ -36,13 +34,13 @@ func (h *portHandler) ServeHTTP(responseWriter http.ResponseWriter, request *htt
 
 	ports, err := h.service.GetPortsByID(request.Context(), nodeID)
 	if err != nil {
-		if errors.Is(err, pgx.ErrNoRows) {
-			http.Error(responseWriter, "Ports not found", http.StatusNotFound)
-
-			return
-		}
-
 		http.Error(responseWriter, "Failed to find ports", http.StatusInternalServerError)
+
+		return
+	}
+
+	if len(ports.Ports) == 0 {
+		http.Error(responseWriter, "Ports not found for this node", http.StatusNotFound)
 
 		return
 	}

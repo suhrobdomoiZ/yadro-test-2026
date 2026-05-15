@@ -31,13 +31,13 @@ func (h *topologyHandler) ServeHTTP(responseWriter http.ResponseWriter, request 
 
 	topology, err := h.service.GetTopology(request.Context(), logID)
 	if err != nil {
-		if len(topology.Hosts) == 0 && len(topology.Switches) == 0 {
-			http.Error(responseWriter, err.Error(), http.StatusNotFound)
-
-			return
-		}
-
 		http.Error(responseWriter, "Failed to find topology", http.StatusInternalServerError)
+
+		return
+	}
+
+	if len(topology.Hosts) == 0 && len(topology.Switches) == 0 {
+		http.Error(responseWriter, err.Error(), http.StatusNotFound)
 
 		return
 	}
