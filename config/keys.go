@@ -11,4 +11,9 @@ const (
 	DatabasePort     loadconfig.Key = "DATABASE_PORT"
 	DatabaseUser     loadconfig.Key = "DATABASE_USER"
 	DatabasePassword loadconfig.Key = "DATABASE_PASSWORD"
+
+	ServerReadTimeout  loadconfig.Key = "READ_TIMEOUT"
+	ServerWriteTimeout loadconfig.Key = "WRITE_TIMEOUT"
+	ServerIdleTimeout  loadconfig.Key = "IDLE_TIMEOUT"
+	ShutdownCtxTimeout loadconfig.Key = "SHUTDOWN_TIMEOUT"
 )

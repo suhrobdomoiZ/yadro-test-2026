@@ -6,14 +6,15 @@ type AppConfig struct {
 	httpPort string
 	envType  string
 
-	DbConfig *PostgresConfig
+	DbConfig      *PostgresConfig
+	TimeoutConfig *TimeoutConfig
 }
 
 func NewAppConfig() *AppConfig {
 	httpPort := HTTPServerPort.MustGet()
 	envType := EnvType.Get(logger.EnvLocal)
 
-	return &AppConfig{httpPort, envType, NewPostgresConfig()}
+	return &AppConfig{httpPort, envType, NewPostgresConfig(), NewTimeoutConfig()}
 }
 
 func (c *AppConfig) HTTPPort() string {

@@ -7,6 +7,7 @@ import (
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/suhrobdomoiZ/yadro-test-2026/config"
+	"github.com/suhrobdomoiZ/yadro-test-2026/internal/server"
 	"github.com/suhrobdomoiZ/yadro-test-2026/migrations"
 	"github.com/suhrobdomoiZ/yadro-test-2026/pkg/closer"
 	"github.com/suhrobdomoiZ/yadro-test-2026/pkg/logger"
@@ -54,5 +55,12 @@ func main() {
 		appLogger.Error("main: migration failed", "error", err)
 		os.Exit(1)
 	}
-	// Server := server.NewServer(cfg, appLogger, appCloser)
+
+	srv := server.NewServer(cfg, appLogger, appCloser, pool)
+
+	err = srv.Start(ctx)
+	if err != nil {
+		srv.Logger.Error("main: failed to serve", "error", err.Error())
+		os.Exit(1)
+	}
 }
